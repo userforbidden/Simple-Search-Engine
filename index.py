@@ -38,8 +38,9 @@ class index:
             print(post_id)
         except DuplicateKeyError as dupError:
             post_id = collectionName.update({"docId":self.docId},{"$set":{"tokens":self.tokens}},upsert=False)
+            '''
             print("index is duplicate so updating the tokens for docId: {}".format(self.docId))
-        
+            '''
         print("index ok {}".format(self.docId))
     '''
     Simple function to print the input calues docid and tokens
