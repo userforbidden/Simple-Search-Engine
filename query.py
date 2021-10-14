@@ -26,6 +26,7 @@ class Query:
         # return 
     def _results(self,query_tokens):
         return [self.index.get(token,set()) for token in query_tokens]
+        
     @timing
     def search(self,query_Tokens,searchType):
         results = self._results(query_Tokens)
