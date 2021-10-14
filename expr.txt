@@ -1,0 +1,21 @@
+Expr(
+    value=BinOp(
+        left=BinOp(left=Name(id='Butter', ctx=Load()), op=BitAnd(), right=Name(id='salt', ctx=Load())
+        ), 
+        op=BitOr(), 
+        right=Name(id='fish', ctx=Load())
+    )
+    )
+
+BinOp(
+    left=BinOp(
+        left=Name(id='of', ctx=Load()), 
+        op=BitAnd(), 
+        right=BinOp(
+            left=Name(id='Butter', ctx=Load()), 
+            op=BitOr(), 
+            right=Name(id='salt', ctx=Load()))
+    ), 
+    op=BitAnd(), 
+    right=Name(id='fish', ctx=Load())
+    )
