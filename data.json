@@ -1,0 +1,11 @@
+[
+    {
+        "docId" : 1,
+        "tokens" : ["soup", "tomato","cream","salt"]
+    },
+    {
+        "docId" : 2,
+        "tokens" : ["cake" ,"sugar" ,"eggs" ,"flour", "sugar", "cocoa" ,"cream" ,"butter"]
+    }
+
+]
