@@ -12,11 +12,26 @@ class Query:
         self.index = {}
         self.documents = {}
 
-    def index_document(self):
-        return 
+    def index_document(self,document):
+        docId = document['docId']
+        if docId not in self.documents:
+            self.documents[docId] = document
+        
+        tokens = document['tokens']
+        for token in tokens:
+            if token not in self.index:
+                self.index[token] = set()
+            self.index[token].add(docId)
+        # return 
+    def _results(self,expression):
+        return [self.index.get(expression,set())]
+    @timing
     def search(self,expression):
-        print(expression)
-    
+        results = self._results(expression)
+        # print (*results)
+
+        return [docId for docId in set(*results)]
+@timing    
 def load_documents():
     CONNECTION_STRING = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
     client = MongoClient(CONNECTION_STRING)
@@ -34,7 +49,7 @@ def gather_documents(documents, query):
     return query
 
 def main():
-    query = gather_documents(get_data(),Query())
+    query = gather_documents(load_documents(),Query())
 
     parser = argparse.ArgumentParser(description='query search Engine.')
 
@@ -48,7 +63,7 @@ def main():
 
 
     # query = Query()
-    query.search(expression)
+    print(query.search(expression))
 
 if __name__ == "__main__":
     main()
