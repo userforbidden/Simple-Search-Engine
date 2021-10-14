@@ -65,7 +65,7 @@ Please implement a search engine in any language you like. You may use standard 
 
 Referenced the timing program from this repository [Reference-1](https://github.com/bartdegoede/python-searchengine/blob/master/search/timing.py)
 
-## Requirements
+## Future Work
 PyStemmer
 Stemming algorithms
 
