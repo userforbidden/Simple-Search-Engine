@@ -60,3 +60,7 @@ out: query results 1 3
 ```
 
 Please implement a search engine in any language you like. You may use standard and open-source libraries and you may consult online materials or books. Please try to make the implementation reasonably fast, for a fairly large number of documents, say in the tens of thousands (you don’t need to test it on large sets of documents, just think about what this would be for your design). Query speed is more important than indexing speed.
+
+## References
+
+Referenced the timing program from this repository [Reference-1](https://github.com/bartdegoede/python-searchengine/blob/master/search/timing.py)
