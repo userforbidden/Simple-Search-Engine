@@ -64,3 +64,14 @@ Please implement a search engine in any language you like. You may use standard 
 ## References
 
 Referenced the timing program from this repository [Reference-1](https://github.com/bartdegoede/python-searchengine/blob/master/search/timing.py)
+
+## Requirements
+PyStemmer
+Stemming algorithms
+
+PyStemmer provides access to efficient algorithms for calculating a “stemmed” form of a word. This is a form with most of the common morphological endings removed; hopefully representing a common linguistic base form. This is most useful in building search engines and information retrieval software; for example, a search with stemming enabled should be able to find a document containing “cycling” given the query “cycles”.
+
+PyStemmer provides algorithms for several (mainly european) languages, by wrapping the libstemmer library from the Snowball project in a Python module.
+
+It also provides access to the classic Porter stemming algorithm for english: although this has been superseded by an improved algorithm, the original algorithm may be of interest to information retrieval researchers wishing to reproduce results of earlier experiments.
+
