@@ -140,3 +140,5 @@ bin/pip3.6
 bin/python
 bin/python3
 pip-selfcheck.json
+bin/normalizer
+bin/pipreqs
