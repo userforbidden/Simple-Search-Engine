@@ -12,7 +12,44 @@ import ast
 class Query:
     def __init__(self) -> None:
         self.index = {}
+        '''
+            {
+                "butter" : (1,2)
+                "search" : (4)
+                ...
+                ....
+                .....
+                .....
+                "[search, engine]" : (4)
+            }
+        '''
         self.documents = {}
+        '''
+        {
+            '1' : <document>,
+            '2' : <document>
+        }
+        '''
+        '''
+        Input 
+        query --docid [1,2] 
+        
+        docIds = [1,2]
+
+        for docid in docIds:
+            dcoumentResults = query.searcDocument(docIds)
+
+            finalResults = [(doc.tokens) for doc in documentResults]
+            [(search,engine),(search)]
+
+            return insetersection(finalResults)
+
+
+        def searchDocument(self, docIds):
+            results = [self.document.get(docId) for docId in docIds]
+
+        
+        '''
 
     def index_document(self,document):
         docId = document['docId']
@@ -45,18 +82,23 @@ class Query:
             documents = [docId for docId in set.union(*results)]
 
         return documents
+
 '''
 This function Get the documents from the database 
 '''
 @timing    
 def load_documents():
-    CONNECTION_STRING = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
-    client = MongoClient(CONNECTION_STRING)
+    try: 
+            
+        CONNECTION_STRING = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+        client = MongoClient(CONNECTION_STRING)
 
-    dbname = client['LocalDatas']
-    collectionName = dbname["searchEngine"]
-
-    return collectionName.find()
+        dbname = client['LocalDatas']
+        collectionName = dbname["searchEngine"]
+        # Gets all the records from the provided collection in a json format
+        return collectionName.find()
+    except ConnectionRefusedError as e:
+        print('query error data connection refused {}'.format(e))
 
 @timing
 def gather_documents(documents, query):
@@ -85,14 +127,18 @@ def main():
                 queryResults = queryResults + [query.search(right.id,'simple')] + [dfs(left.left,left.right,left.op)]
         elif type(left) is ast.Name and type(right) is ast.BinOp:
             if op == '&':
-                queryResults = queryResults + intersection([query.search(right.id,'simple')] ,[dfs(left.left,left.right,left.op)])
+                queryResults = queryResults + intersection([query.search(left.id,'simple')] ,[dfs(right.left,right.right,right.op)])
             elif op == '|':
                 queryResults = queryResults + [query.search(left.id,'simple')] + [dfs(right.left,right.right,right.op)]
 
         return queryResults
         
 
-    query = gather_documents(load_documents(),Query())
+    
+    ''''
+    input doc-id1 doc-id2 ... doc-idN
+
+    '''
 
     # Get the command line arguments
     parser = argparse.ArgumentParser(description='query search Engine.')
@@ -101,6 +147,12 @@ def main():
     group.add_argument('--complex', type=str,help="Enter the complex search query")
     # parser.add_argument('expression',type=str,help="token to be searched",)
     args = parser.parse_args()
+    
+    if args.test is not None:
+        query = gather_documents(load_documents(),Query())
+    else: 
+        query = gather_documents('<jsondata>',Query())
+
     if args.simple is not None:
         expression = args.simple
         queryResults = query.search(expression,'simple')

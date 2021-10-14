@@ -39,10 +39,16 @@ class index:
             post_id = collectionName.insert_one(document).inserted_id
             print(post_id)
         except DuplicateKeyError as dupError:
-            post_id = collectionName.update({"docId":self.docId},{"$set":{"tokens":self.tokens}},upsert=False)
+            # Get the existing token Values
+            existingToken = collectionName.find_one({"docId":self.docId})
+            # Append existing and New Tokens
+            newToken = existingToken + self.tokens
+            post_id = collectionName.update({"docId":self.docId},{"$set":{"tokens":newToken}},upsert=False)
             '''
             print("index is duplicate so updating the tokens for docId: {}".format(self.docId))
             '''
+        except Exception as e:
+            print(e)
         print("index ok {}".format(self.docId))
     '''
     Simple function to print the input calues docid and tokens
