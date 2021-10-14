@@ -5,6 +5,7 @@ Date Created: 11-Oct-2021
 from typing import List
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
+from timed import timing
 import argparse
 
 class index:
@@ -18,6 +19,7 @@ class index:
     '''
     function to insert the index data into MongoDb
     '''
+    @timing
     def insertIndextoDatabase(self):
         CONNECTION_STRING = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
         client = MongoClient(CONNECTION_STRING)
